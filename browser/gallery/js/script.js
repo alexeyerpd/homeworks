@@ -13,7 +13,7 @@ const array = [ './i/breuer-building.jpg',
 let step = 0;
 function nextPhoto() {
   step++;
-  if ( step > 4 ) {
+  if ( step >= array.length ) {
     step = 0;
     img.src = array[step];
   } else {
@@ -24,7 +24,7 @@ function nextPhoto() {
 function prevPhoto() {
   step--;
   if ( step < 0 ) {
-    step = 4;
+    step = array.length - 1;
     img.src = array[step];
   } else {
     img.src = array[step];
