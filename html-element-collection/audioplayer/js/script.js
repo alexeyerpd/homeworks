@@ -42,6 +42,8 @@ function playstate() {
   if (!btnPlay.classList.contains('play')) {
   	btnPlay.classList.remove('pause');
   	btnPlay.classList.add('play');
+  	mediaplayer.classList.remove('stop');
+  	mediaplayer.classList.remove('pause');
   	mediaplayer.classList.add('play');
   	
   	faPause.style.display = 'inline-block';
@@ -51,6 +53,7 @@ function playstate() {
   	btnPlay.classList.remove('play');
   	btnPlay.classList.add('pause');
   	mediaplayer.classList.remove('play');
+  	mediaplayer.classList.add('pause')
   	
   	faPause.style.display = 'none';
 		faPlay.style.display = 'inline-block';
@@ -73,14 +76,15 @@ btnPlay.onclick = playstate;
 
 function stop() {
 	endMusic();
+	if (!mediaplayer.classList.contains('stop') && !mediaplayer.classList.contains('pause')) {
+		mediaplayer.classList.add('stop');
+  }
 	btnAudio.currentTime = 0;
 }
 
 btnStop.onclick = stop;
 
 function next() {
-	endMusic();
-	
 	stepMusic++;
 	if (stepMusic > music.length - 1) {
 		stepMusic = 0;
@@ -89,12 +93,13 @@ function next() {
 		btnAudio.src = music[stepMusic].link;
 	}
 	musicName.title = music[stepMusic].title;
-	start();
+
+	if (mediaplayer.classList.contains('play')) {
+		start();
+  }
 }
 
 function back() {
-	endMusic();
-	
 	stepMusic--;
 	if (stepMusic < 0) {
 		stepMusic = music.length - 1;
@@ -103,7 +108,10 @@ function back() {
 		btnAudio.src = music[stepMusic].link;
 	}
 	musicName.title = music[stepMusic].title;
-	start();
+
+  if (mediaplayer.classList.contains('play')) {
+    start();
+  }
 }
 
 btnBack.onclick = back;
