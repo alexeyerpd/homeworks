@@ -19,10 +19,20 @@ const musicName = document.getElementsByClassName('title')[0];
 btnAudio.src = music[0].link;
 let timeoutID, stepMusic = 0;
 
+function start() {
+  btnPlay.classList.add('play');
+  mediaplayer.classList.add('play');
+
+  faPause.style.display = 'inline-block';
+  faPlay.style.display = 'none';
+  btnAudio.play();
+}
+
 function endMusic() {
 	btnPlay.classList.remove('play');
 	btnPlay.classList.add('pause');
 	mediaplayer.classList.remove('play');
+
 	faPause.style.display = 'none';
 	faPlay.style.display = 'inline-block';
 	btnAudio.pause();
@@ -74,11 +84,12 @@ function next() {
 	stepMusic++;
 	if (stepMusic > music.length - 1) {
 		stepMusic = 0;
-		btnAudio.src = music[stepMusic].link
+		btnAudio.src = music[stepMusic].link;
 	} else {
-		btnAudio.src = music[stepMusic].link
+		btnAudio.src = music[stepMusic].link;
 	}
 	musicName.title = music[stepMusic].title;
+	start();
 }
 
 function back() {
@@ -87,11 +98,12 @@ function back() {
 	stepMusic--;
 	if (stepMusic < 0) {
 		stepMusic = music.length - 1;
-		btnAudio.src = music[stepMusic].link
+		btnAudio.src = music[stepMusic].link;
 	} else {
-		btnAudio.src = music[stepMusic].link
+		btnAudio.src = music[stepMusic].link;
 	}
 	musicName.title = music[stepMusic].title;
+	start();
 }
 
 btnBack.onclick = back;

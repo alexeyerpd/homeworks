@@ -1,9 +1,11 @@
 'use strict';
 
-let directory = Array.from(document.getElementsByClassName('drum-kit__drum'));
+const directory = Array.from(document.getElementsByClassName('drum-kit__drum'));
 
 function play() {
-  this.getElementsByTagName('audio')[0].play();
+  const button = this.getElementsByTagName('audio')[0];
+  button.currentTime = 0;
+  button.play();
 }
 
 directory.forEach((music) => {
