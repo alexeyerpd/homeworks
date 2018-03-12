@@ -28,7 +28,7 @@ function openMenu(event) {
   //   nav.classList.add('visible')
   // }
   if (event.ctrlKey && event.altKey && event.code === 'KeyT') {
-    nav.classList.add('visible');
+    nav.classList.toggle('visible');
   }
 }
 
