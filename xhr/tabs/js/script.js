@@ -1,44 +1,50 @@
 'use strict';
-
-const emailTab = document.querySelectorAll('.tabs nav a')[0];
-const smsTab = document.querySelectorAll('.tabs nav a')[1];
 const content = document.querySelector('#content');
 const preloader = document.querySelector('#preloader');
+const tabs = document.querySelectorAll('.tabs nav a');
 
-let emailHTML, smsHTML;
+document.addEventListener('DOMContentLoaded', getStartPage);
+tabs.forEach(tab => tab.addEventListener('click', getPage));
 
-const xhrEmail = new XMLHttpRequest();
-const xhrSms = new XMLHttpRequest();
-xhrEmail.addEventListener('load', onLoadEmail);
-xhrSms.addEventListener('load', onLoadSms);
-xhrEmail.addEventListener('loadstart', onLoadStart);
-xhrEmail.addEventListener('loadend', onLoadEnd)
-
-emailTab.addEventListener('click', act);
-smsTab.addEventListener('click', act);
-
-xhrEmail.open(
-  'GET',
-  `https://raw.githubusercontent.com/alexeyerpd/homeworks/master/xhr/tabs/components/email-tab.html`,
-  true
-);
-
-xhrSms.open(
-  'GET',
-  `https://raw.githubusercontent.com/alexeyerpd/homeworks/master/xhr/tabs/components/sms-tab.html`,
-  true
-);
-
-xhrEmail.send();
-
-function onLoadEmail() {
-  emailHTML = xhrEmail.responseText;
-  content.innerHTML = emailHTML;
+function getStartPage() {
+  const firstTab = document.querySelector('.tabs nav a.active');
+  xhrOn(firstTab);
 }
 
-function onLoadSms() {
-  smsHTML = xhrSms.responseText;
-  content.innerHTML = smsHTML;
+function getPage(event) {
+  event.preventDefault();
+  const tab = event.target;
+
+  if (tab.classList.contains('active')) {
+    return;
+  } else {
+    delActiveClass();
+    tab.classList.add('active');
+    xhrOn(tab);
+  }
+}
+
+function delActiveClass() {
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+  })
+}
+
+function xhrOn(button) {
+  const xhr = new XMLHttpRequest();
+  xhr.open(
+    'GET',
+    `${button.href}`
+  );
+  xhr.addEventListener('load', pasteContentTab);
+  xhr.addEventListener('loadstart', onLoadStart);
+  xhr.addEventListener('loadend', onLoadEnd);
+  xhr.send();
+
+  function pasteContentTab() {
+    const result = xhr.responseText
+    content.innerHTML = `${result}`;
+  }
 }
 
 function onLoadStart() {
@@ -48,49 +54,3 @@ function onLoadStart() {
 function onLoadEnd() {
   preloader.classList.add('hidden');
 }
-
-function currentXML(type) {
-  if (type === 'Email') {
-    xhrEmail.open(
-      'GET',
-      `https://raw.githubusercontent.com/alexeyerpd/homeworks/master/xhr/tabs/components/email-tab.html`,
-      true
-    );
-    xhrEmail.send();
-  } else if (type === 'SMS') {
-    xhrSms.open(
-      'GET',
-      `https://raw.githubusercontent.com/alexeyerpd/homeworks/master/xhr/tabs/components/sms-tab.html`,
-      true
-    );
-    xhrSms.send();
-  }
-}
-
-function del(tab) {
-  if (tab === 'Email') {
-    Array.from(document.querySelectorAll('a.active')).forEach(status => {
-      status.classList.remove('active');
-    });
-  } else if (tab === "SMS") {
-    Array.from(document.querySelectorAll('a.active')).forEach(status => {
-      status.classList.remove('active');
-    });
-  }
-}
-
-function act(event) {
-  event.preventDefault();
-  if (this.innerHTML === 'Email') {
-    currentXML('Email');
-    del('Email');
-    this.classList.add('active');
-  } else if (this.innerHTML === "SMS") {
-    currentXML('SMS');
-    del('SMS')
-    this.classList.add('active');
-  }
-}
-
-
-
