@@ -18,10 +18,10 @@ function createRow(data, i) {
 
 function createRows(data) {
   return data
-    .map((item, i) => {
-      item.el = createRow(item);
-      item.el.classList.add(i % 2 ? 'odd' : 'even');
-      return item.el;
+    .map((item, step) => {
+      item.tab = createRow(item);
+      item.tab.classList.add(step % 2 ? 'odd' : 'even');
+      return item.tab;
     })
     .reduce((fragment, row) => {
       fragment.appendChild(row);
@@ -40,11 +40,11 @@ function sortTable(prop, dir) {
     .sort((a, b) => {
       return a[prop] > b[prop] ? dir : -dir;
     })
-    .forEach((item, i) => {
-      item.el.style.order = i + 1;
-      item.el.classList.remove('odd');
-      item.el.classList.remove('even');
-      item.el.classList.add(i % 2 ? 'odd' : 'even');
+    .forEach((item, step) => {
+      item.tab.style.order = step + 1;
+      item.tab.classList.remove('odd');
+      item.tab.classList.remove('even');
+      item.tab.classList.add(step % 2 ? 'odd' : 'even');
     });
 }
 
