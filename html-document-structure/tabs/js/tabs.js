@@ -10,7 +10,7 @@ function start() {
   tabs.forEach((tab, index) => {
     const newTab = etalonTab.cloneNode(true);
     newTab.firstChild.innerHTML = tab.dataset.tabTitle;
-    newTab.classList.add(`${tab.dataset.tabIcon}`);
+    newTab.querySelector('a').classList.add(`${tab.dataset.tabIcon}`);
     newTab.addEventListener('click', tabActivated);
 
     tabsNav.appendChild(newTab);
@@ -33,7 +33,7 @@ function tabActivated(event) {
   currentTab.classList.add('ui-tabs-active');
 
   tabs.forEach((tab) => {
-    if (currentTab.classList.contains(`${tab.dataset.tabIcon}`)) {
+    if (currentTab.querySelector('a').classList.contains(`${tab.dataset.tabIcon}`)) {
       tab.classList.remove('hidden');
     } else {
       tab.classList.add('hidden');
