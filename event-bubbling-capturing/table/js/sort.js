@@ -1,34 +1,31 @@
 'use strict';
+const captions = document.querySelectorAll('thead th');
 
 function handleTableClick(event) {
 
-  switch(event.target) {
-    case document.querySelector('thead th[data-prop-name="firstName"]') :
-      checkDir(event.target);
-      removeAtt(event.target);
-      break;
+  captions.forEach(caption => {
+    if (caption === event.target) {
 
-    case document.querySelector('thead th[data-prop-name="lastName"]') :
-      checkDir(event.target);
-      removeAtt(event.target);
-      break;
+      if (checkDir(event.target)) {
+        event.target.dataset.dir = '1';
+        sortTable(event.target.dataset.propName, -1);
+      } else {
+        event.target.dataset.dir = '-1';
+        sortTable(event.target.dataset.propName, 1);
+      }
 
-    case document.querySelector('thead th[data-prop-name="birth"]') :
-      checkDir(event.target);
+      document.querySelector('thead').dataset.sortBy = event.target.dataset.propName;
       removeAtt(event.target);
-      break;
-  }
+    }
+  });
 }
 
 function checkDir(node) {
   if (node.dataset.dir === '-1') {
-    node.dataset.dir = '1';
-    sortTable(node.dataset.propName, -1);
+    return true;
   } else {
-    node.dataset.dir = '-1';
-    sortTable(node.dataset.propName, 1);
+    return false
   }
-  document.querySelector('thead').dataset.sortBy = node.dataset.propName;
 }
 
 function removeAtt(node) {
