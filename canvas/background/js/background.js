@@ -7,9 +7,10 @@ const wall = document.querySelector('#wall');
 wall.width = html.clientWidth;
 wall.height = html.clientHeight;
 
-const wallX = wall.clientWidth;
-const wallY = wall.clientHeight;
+let wallX = wall.clientWidth;
+let wallY = wall.clientHeight;
 const ctx = wall.getContext('2d');
+let stIntrl;
 
 function nextPoint1(x, y, time = Date.now()) { // функция времени 1
   return {
@@ -94,29 +95,38 @@ class Cross {
     this.degree += this.speed;
   }
 }
+function start() {
+  clearInterval(stIntrl);
+  wall.width = html.clientWidth;
+  wall.height = html.clientHeight;
+  wallX = wall.width;
+  wallY =wall.height;
 
-const quantity = Math.round(random(50, 200));
-const arrayCircles = [];
-const arrayCross = [];
+  const quantity = Math.round(random(50, 200));
+  const arrayCircles = [];
+  const arrayCross = [];
 
-for (let i = 0; i < (quantity / 2); i++) {
-  const circle = new Circle(random(0, wallX),random(0, wallY));
-  circle.animations = [nextPoint1, nextPoint2][Math.round(Math.random())];
-  arrayCircles.push(circle)
+  for (let i = 0; i < (quantity / 2); i++) {
+    const circle = new Circle(random(0, wallX), random(0, wallY));
+    circle.animations = [nextPoint1, nextPoint2][Math.round(Math.random())];
+    arrayCircles.push(circle)
+  }
+
+  for (let i = 0; i < (quantity / 2); i++) {
+    const cross = new Cross(random(0, wallX), random(0, wallY));
+    cross.animations = [nextPoint1, nextPoint2][Math.round(Math.random())];
+    arrayCross.push(cross)
+  }
+
+  const objects = arrayCircles.concat(arrayCross);
+
+  stIntrl = setInterval(() => {
+    ctx.clearRect(0, 0, wall.width, wall.height);
+    objects.forEach((obj, ind) => {
+      obj.create(obj.animations())
+    })
+  }, 50);
 }
 
-for (let i = 0; i < (quantity / 2); i++) {
-  const cross = new Cross(random(0, wallX),random(0, wallY));
-  cross.animations = [nextPoint1, nextPoint2][Math.round(Math.random())];
-
-  arrayCross.push(cross)
-}
-
-const objects =  arrayCircles.concat(arrayCross);
-
-setInterval(() => {
-  ctx.clearRect(0,0, wall.width, wall.height);
-  objects.forEach((obj, ind) => {
-    obj.create(obj.animations())
-  })
-}, 50);
+start();
+window.addEventListener('resize', start)
