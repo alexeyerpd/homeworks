@@ -1,6 +1,7 @@
 'use strict';
 
 function createElement(node) {
+  console.log(node)
   if (typeof node === 'string' || typeof  node === 'number' || node === true) {
     return document.createTextNode(node)
   }
@@ -21,11 +22,7 @@ function createElement(node) {
 
   const element = document.createElement(node.name);
 
-  if (node.props === null) {
-    return document.createTextNode('')
-  }
-
-  if (node.props.class) {
+  if (node.props) {
 
     [].concat(node.props.class.split(' ')).filter(Boolean).forEach(className => {
       element.classList.add(className)
@@ -34,7 +31,6 @@ function createElement(node) {
   }
 
   element.appendChild(createElement(node.childs))
-
+  console.log(element)
   return element;
 }
-
