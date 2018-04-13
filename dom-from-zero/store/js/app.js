@@ -35,6 +35,6 @@ const content = e(
   )
 );
 
-console.log(content)
 const wrapper = document.getElementById('root');
 wrapper.appendChild(createElement(content));
+
