@@ -6,6 +6,7 @@ function showComments(list) {
 }
 
 function createComment(comment) {
+
   return {
     tag: 'div',
     cls: 'comment-wrap',
@@ -33,7 +34,7 @@ function createComment(comment) {
           {
             tag: 'p',
             cls: 'comment-text',
-            content: `${comment.text.split('\\n').join('<br>')}`
+            content: `${comment.text.split('\n').join('\n')}`
           },
           {
             tag: 'div',
@@ -85,6 +86,7 @@ function renderingBrowserEngine(block) {
   }
 
   const element = document.createElement(block.tag);
+  element.style.whiteSpace = 'pre-line';
 
   [].concat(block.cls).filter(Boolean).forEach(className => element.classList.add(className));
 
