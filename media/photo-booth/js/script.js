@@ -45,8 +45,7 @@ function act(event) {
   const resultImg = renderingEngine(create(image.src));
   setEventListener(resultImg);
 
-  // list.appendChild(resultImg) // ЕСЛИ ЕСТЬ???
-  list.querySelector('figure')
+
   list.insertBefore(resultImg, list.querySelector('figure'))
 
   const newPrevImg = createImgForPrev(image);
@@ -57,17 +56,35 @@ function act(event) {
 }
 
 function fileUpload(event) {
-  console.log(event)
-  const img = event.target.closest('img')
-  const formData = new FormData();
-  console.log(img)
-  // formData.append('image', )
-  // img.toBlob(onSendBlob)
+  const img = event.target.closest('FIGURE').querySelector('img');
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = img.clientWidth;
+  canvas.height = img.clientHeight;
+
+  ctx.drawImage(img, 0, 0);
+
+  canvas.toBlob((blob) => {
+    const formData = new FormData();
+    formData.append('image', blob);
+
+    fetch(`https://neto-api.herokuapp.com/photo-booth`, {
+      body: formData,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((request) => {
+      if (request.status !== 200) {
+        throw `Ошиюка соединения: ${request.status}`
+      }
+    }).catch( err => {
+      console.error(err)
+    })
+  });
 }
 
-function onSendBlob(blob) {
-  console.log('BLOB')
-}
 
 function hasPrevImgInList() {
   if (!list.querySelector('figure img')) {
@@ -129,18 +146,6 @@ function setEventListener(imgNode) {
     }
   })
 }
-
-const request = fetch(`https://neto-api.herokuapp.com/photo-booth`, {
-  // body: ,
-  method: 'POST',
-  headers: {
-    'Content-Type': 'multipart/form-data'
-  }
-}).then(e => {
-  console.log(e)
-})
-
-
 
 function create(src) {
   return {
@@ -221,7 +226,6 @@ function renderingEngine(block) {
   }
   element.appendChild(renderingEngine(block.childs));
   return element;
-
 }
 
 
