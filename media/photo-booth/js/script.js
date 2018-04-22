@@ -46,7 +46,7 @@ function act(event) {
   setEventListener(resultImg);
 
 
-  list.insertBefore(resultImg, list.querySelector('figure'))
+  list.insertBefore(resultImg, list.querySelector('figure'));
 
   const newPrevImg = createImgForPrev(image);
 
@@ -60,8 +60,8 @@ function fileUpload(event) {
 
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  canvas.width = img.clientWidth;
-  canvas.height = img.clientHeight;
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
 
   ctx.drawImage(img, 0, 0);
 
@@ -72,12 +72,9 @@ function fileUpload(event) {
     fetch(`https://neto-api.herokuapp.com/photo-booth`, {
       body: formData,
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
     }).then((request) => {
       if (request.status !== 200) {
-        throw `Ошиюка соединения: ${request.status}`
+        throw `Ошибка соединения: ${request.status}`
       }
     }).catch( err => {
       console.error(err)
