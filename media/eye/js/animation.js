@@ -2,6 +2,8 @@
 const html = document.querySelector('html');
 const eye = document.querySelector('.big-book__pupil');
 
+// eye.style.transitionDuration = '.03s'; // становится плавнее переход
+
 let mouseX, mouseY; // координаты курсора мышки с учетом смещения
 let htmlX, htmlY; // текущий размер окна
 
