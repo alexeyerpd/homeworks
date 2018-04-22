@@ -68,12 +68,12 @@ function offsetPupilY(mouseY) {
 }
 
 function setEyeSize(mouseX, mouseY) {
-  if (isEyeSize3(mouseX, mouseY)) {
-    eye.style.setProperty('--pupil-size', 3);
+  if (isEyeSize1(mouseX, mouseY)) {
+    eye.style.setProperty('--pupil-size', 1);
   } else if (isEyeSize2(mouseX, mouseY)) {
     eye.style.setProperty('--pupil-size', 2);
-  } else if (isEyeSize1(mouseX, mouseY)) {
-    eye.style.setProperty('--pupil-size', 1);
+  } else if (isEyeSize3(mouseX, mouseY)) {
+    eye.style.setProperty('--pupil-size', 3);
   }
 }
 
