@@ -42,7 +42,6 @@ function onAllClose(event) {
 }
 
 function hasOccupation(event) {
-
   if (event.target.classList.contains('seat-label') && event.button === 0 && !event.altKey) {
     event.target.parentElement.classList.remove('half');
     event.target.parentElement.classList.toggle('adult');
@@ -71,16 +70,14 @@ function act(event) {
   i = 0;
   schemePlaces.textContent = '';
 
+  fetch(`https://neto-api.herokuapp.com/plane/${acSelect.value}`)
+    .then(response)
+    .then((data) => {
+      show(data.scheme);
 
-    fetch(`https://neto-api.herokuapp.com/plane/${acSelect.value}`)
-      .then(response)
-      .then((data) => {
-        show(data.scheme);
-
-        title.textContent = `${data.title} (${data.passengers} пассажиров)`;
-        placesCountCheck();
-      })
-
+      title.textContent = `${data.title} (${data.passengers} пассажиров)`;
+      placesCountCheck();
+    })
 }
 
 function placesCountCheck() {
@@ -136,7 +133,7 @@ function create(place) {
             }
           ]
         },
-        {//
+        {
           tag: 'div',
           cls: 'col-xs-5',
           content: [
@@ -146,7 +143,7 @@ function create(place) {
               content: [
                 {
                   tag: 'span',
-                  cls: 'seat-label', //333
+                  cls: 'seat-label',
                   content: 'A'
                 }
               ]
@@ -157,7 +154,7 @@ function create(place) {
               content: [
                 {
                   tag: 'span',
-                  cls: 'seat-label', //333
+                  cls: 'seat-label',
                   content: 'B'
                 }
               ]
@@ -168,14 +165,14 @@ function create(place) {
               content: [
                 {
                   tag: 'span',
-                  cls: 'seat-label', //333
+                  cls: 'seat-label',
                   content: 'C'
                 }
               ]
             }
           ]
         },
-        {//
+        {
           tag: 'div',
           cls: 'col-xs-5',
           content: [
@@ -185,7 +182,7 @@ function create(place) {
               content: [
                 {
                   tag: 'span',
-                  cls: 'seat-label', //333
+                  cls: 'seat-label',
                   content: 'D'
                 }
               ]
@@ -196,7 +193,7 @@ function create(place) {
               content: [
                 {
                   tag: 'span',
-                  cls: 'seat-label', //333
+                  cls: 'seat-label',
                   content: 'E'
                 }
               ]
@@ -207,7 +204,7 @@ function create(place) {
               content: [
                 {
                   tag: 'span',
-                  cls: 'seat-label', //333
+                  cls: 'seat-label',
                   content: 'F'
                 }
               ]
