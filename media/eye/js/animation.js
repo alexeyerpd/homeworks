@@ -79,10 +79,10 @@ function setEyeSize(mouseX, mouseY) {
 
 function isEyeSize1(x, y) {
   if (
-    (x < lengthXLeftForEyeSize * 0.6) ||
-    (x > lengthXRightForEyeSize * 0.6) ||
-    (y < lengthYTopForEyeSize * 0.6) ||
-    (y > lengthYBottomForEyeSize * 0.6)
+    (x < lengthXLeftForEyeSize * 0.66) ||
+    (x > lengthXRightForEyeSize * 0.66) ||
+    (y < lengthYTopForEyeSize * 0.66) ||
+    (y > lengthYBottomForEyeSize * 0.66)
   ) {
     return true;
   } else {
@@ -92,10 +92,10 @@ function isEyeSize1(x, y) {
 
 function isEyeSize2(x, y) {
   if (
-    (x > lengthXLeftForEyeSize * 0.6 && x < lengthXLeftForEyeSize * 0.3) ||
-    (x > lengthXRightForEyeSize * 0.3 && x < lengthXRightForEyeSize * 0.6) ||
-    (y > lengthYTopForEyeSize * 0.6 && y < lengthYTopForEyeSize * 0.3) ||
-    (y > lengthYBottomForEyeSize * 0.3 && y < lengthYBottomForEyeSize * 0.6)
+    (x >= lengthXLeftForEyeSize * 0.66 && x <= lengthXLeftForEyeSize * 0.33) ||
+    (x >= lengthXRightForEyeSize * 0.33 && x <= lengthXRightForEyeSize * 0.66) ||
+    (y >= lengthYTopForEyeSize * 0.66 && y <= lengthYTopForEyeSize * 0.33) ||
+    (y >= lengthYBottomForEyeSize * 0.33 && y <= lengthYBottomForEyeSize * 0.66)
   ) {
     return true;
   } else {
@@ -104,7 +104,7 @@ function isEyeSize2(x, y) {
 }
 
 function isEyeSize3(x, y) {
-  if ((x > lengthXLeftForEyeSize * 0.3 && x < lengthXRightForEyeSize * 0.3) && (y > lengthYTopForEyeSize * 0.3 && y < lengthYBottomForEyeSize * 0.3)) {
+  if ((x > lengthXLeftForEyeSize * 0.33 && x < lengthXRightForEyeSize * 0.33) && (y > lengthYTopForEyeSize * 0.33 && y < lengthYBottomForEyeSize * 0.33)) {
     return true;
   } else {
     return false;
